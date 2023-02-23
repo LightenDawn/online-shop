@@ -4,7 +4,7 @@ const express = require("express");
 const csrf = require('csurf');
 const expressSession = require('express-session');
 
-const port = 3000;
+let port = 3000;
 
 if(process.env.PORT) {
   port = process.env.PORT;
