@@ -1,0 +1,29 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+main h1,
+main h2 {
+  color: var(--color-gray-300);
+  text-align: center;
+}
+
+form {
+  max-width: 25rem;
+  margin: var(--space-8) auto;
+  padding: var(--space-4);
+  background-color: var(--color-gray-600);
+  border-radius: var(--border-radius-medium);
+  text-align: center;
+}
+
+form a {
+  font-size: var(--space-4);
+  color: var(--color-primary-200);
+  transition: 0.2s ease-in;
+}
+
+form a:hover,
+form a:active {
+  color: var(--color-primary-400);
+}

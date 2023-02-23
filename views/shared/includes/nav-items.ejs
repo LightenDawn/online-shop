@@ -1,0 +1,34 @@
+<ul class="nav-items">
+  <!-- 非管理者身分登入時 -->
+  <% if (!locals.isAdmin) { %>
+    <li><a href="/">Shop</a></li>
+    <li><a href="/cart">Cart<span class="badge"><%= locals.cart.totalQuantity %></span></a></li>
+  <% } %>
+
+  <!-- 登入經過認證 且 不是管理者身分 -->
+  <% if (locals.isAuth && !locals.isAdmin) { %>
+    <li><a href="/orders">Orders</a></li>
+  <% } %>
+
+  <!-- 是管理者身分 -->
+  <% if (locals.isAdmin) { %>
+    <li><a href="/admin/products">Manage Products</a></li>
+    <li><a href="/admin/orders">Manage Orders</a></li>
+  <% } %>
+  
+  <!-- 登入未經過認證 -->
+  <% if (!locals.isAuth) { %>
+    <li><a href="/signup">Signup</a></li>
+    <li><a href="/login">Login</a></li>
+  <% } %>
+
+  <!-- 登入經過認證 -->
+  <% if (locals.isAuth) { %>
+    <li>
+      <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+        <button>Logout</button>
+      </form>
+    </li>
+  <% } %>
+</ul>

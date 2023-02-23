@@ -1,0 +1,190 @@
+main {
+  /* main-header為fixed position，因此main區塊應該要在main-header下方 */
+  margin-top: 6rem;
+}
+
+#main-header {
+  /* 預設設為固定在左上角 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 60rem;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  /* 呈現樣式為左右空格相間 */
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-primary-500);
+  background-color: var(--color-grey-500);
+}
+
+#main-header #logo {
+  font-size: var(--space-8);
+  font-weight: bold;
+}
+
+#main-header nav {
+  display: none;
+}
+
+.nav-items {
+  height: 100%;
+  display: flex;
+  /* 呈現列的形式 */
+  flex-direction: column;
+  align-items: center;
+  /* 上下左右空格相間 */
+  justify-content: space-around;
+}
+
+.nav-items li {
+  /* padding: 0 2rem; */
+  margin: 0 var(--space-2);
+}
+
+.nav-items li a {
+  font-size: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 10px;
+  transition: 0.1s ease-in;
+}
+
+.nav-items li a:hover,
+.nav-items li a:active {
+  color: var(--color-grey-600);
+  background-color: var(--color-primary-700);
+}
+
+.nav-items li a:hover span,
+.nav-items li a:active span {
+  background-color: var(--color-gray-200);
+}
+
+/* 繼承到base.css的form樣式，因此要將一些設定調整 */
+.nav-items form {
+  background-color: var(--color-gray-500);
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* logout button設計 */
+.nav-items button {
+  cursor: pointer;
+  font: inherit;
+  border: 1px solid var(--color-primary-100);
+  border-radius: var(--border-radius-small);
+  background-color: transparent;
+  padding: var(--space-2) var(--space-4);
+  transition: 0.2s ease-in-out;
+}
+
+.nav-items button:hover,
+.nav-items button:active {
+  color: var(--color-gray-100);
+  background-color: var(--color-primary-500);
+}
+
+#mobile-menu-btn {
+  display: flex;
+  /* 將button的內部元素用列呈現 */
+  flex-direction: column;
+  /* 上下左右空格相間 */
+  justify-content: space-around;
+  border: none;
+  cursor: pointer;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* 設計漢堡的圖示 */
+#mobile-menu-btn span {
+  width: 2.25rem;
+  height: 0.2rem;
+  background-color: var(--color-gray-100);
+}
+
+/* 漢堡點擊後出現的介面 */
+#mobile-menu {
+  /* 位置為固定 */
+  position: fixed;
+  /* 離上方5rem距離(因為有main-header存在) */
+  top: 5rem;
+  left: 0;
+  /* 100vh為1個螢幕的大小扣去main-header的高度 */
+  height: calc(100vh - 5rem);
+  width: 100%;
+  background-color: var(--color-gray-700);
+  /* 預設不呈現，當點擊漢堡時才會出現 */
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#mobile-menu.open {
+  display: flex;
+}
+
+#mobile-menu nav {
+  height: 20rem;
+  width: 90%;
+  margin: var(--space-4) auto;
+}
+
+#mobile-menu .nav-items a,
+#mobile-menu .nav-items button {
+  font-size: 1.75rem;
+  color: var(--color-primary-100);
+}
+
+/* 電腦使用者拜訪時 */
+@media (min-width: 48rem) {
+  main {
+    margin-top: 0;
+  }
+
+  #main-header {
+    position: static;
+  }
+
+  #main-header nav {
+    display: block;
+  }
+
+  #mobile-menu-btn {
+    display: none;
+  }
+
+  #mobile-menu {
+    display: none;
+  }
+
+  #mobile-menu.open {
+    display: none;
+  }
+
+  .nav-items {
+    /* 先前預設的呈現方式為列，此處為行 */
+    flex-direction: row;
+  }
+
+  .nav-items button {
+    color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+  }
+
+  .nav-items a{
+    transition: 0.5s ease-in;
+  }
+  
+  .nav-items a:hover,
+  .nav-items a:active {
+    color: var(--color-grey-600);
+    background-color: var(--color-primary-700);
+  }
+}

@@ -1,0 +1,16 @@
+main {
+  text-align: center;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  color: var(--color-primary-500-contrast);
+}
+
+#link {
+  margin-top: 2rem;
+}
