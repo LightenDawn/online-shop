@@ -1,7 +1,16 @@
+const path = require('path');
 const Product = require("../models/product.model");
 const Order = require('../models/order.model');
 // const validation = require("../util/validation");
 // const sessionFlash = require("../util/session-flash");
+const cloudinary = require('cloudinary').v2;
+
+// Configuration 
+cloudinary.config({
+  cloud_name: "dzjktn9na",
+  api_key: "398746524779951",
+  api_secret: "ByyCPf_ep9RASgX48m5Jl-VzAYE"
+});
 
 async function getProducts(req, res, next) {
   // 獲取資料庫資料可能會出錯，因此用try&catch
@@ -20,11 +29,18 @@ function getNewProduct(req, res) {
 }
 
 async function createNewProduct(req, res, next) {
+  let imageName;
+  if (req.file) {
+    publicId = { public_id: path.parse(req.file.filename).name };
+    imageName = await cloudinary.uploader.upload(req.file.path, publicId);
+  }
+
   const product = new Product({
     /// 將使用者輸入的欄位用解壓縮的方式傳遞
     ...req.body,
     // 存取multer所獲取的圖片檔案名稱
     image: req.file.filename,
+    imagePath: imageName.url
   });
 
   try {

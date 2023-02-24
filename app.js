@@ -39,6 +39,7 @@ app.use(express.json());
 const sessionConfig = createSessionConfig();
 
 app.use(expressSession(sessionConfig));
+
 app.use(csrf());
 
 app.use(cartMiddleware);
@@ -46,6 +47,7 @@ app.use(updateCartPricesMiddleware);
 
 app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
+
 
 app.use(baseRoutes);
 app.use(authRoutes);
