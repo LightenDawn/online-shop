@@ -68,14 +68,14 @@ async function getUpdateProduct(req, res, next) {
 }
 
 async function updateProduct(req, res, next) {
+  const image = await Product.findById(req.params.id);
   const product = new Product({
     // 將使用者輸入的資料傳遞給model中
     ...req.body,
+    image: image.image,
     // _id儲存當前商品的id
     _id: req.params.id,
   });
-
-  const image = await Product.findById(req.params.id);
 
   // 因為到更新頁面，圖片欄位為空，若不為空時，代表使用者有新增圖片
   if (req.file) {
@@ -98,6 +98,7 @@ async function deleteProduct(req, res, next) {
   try {
     // 透過先前的findById()，在資料庫中尋找符合id的資料，並且建立新的物件儲存該筆資料
     const product = await Product.findById(req.params.id);
+    await cloudinary.uploader.destroy(product.image);
     // 再透過該物件進行移除的動作
     await product.remove();
   } catch (error) {
