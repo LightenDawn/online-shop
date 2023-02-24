@@ -5,11 +5,11 @@ const db = require("../data/database");
 class Product {
   constructor(productData) {
     this.title = productData.title,
-      this.summary = productData.summary,
-      this.price = +productData.price,
-      this.description = productData.description,
-      // 圖片的名稱
-      this.image = productData.image;
+    this.summary = productData.summary,
+    this.price = +productData.price,
+    this.description = productData.description,
+    // 圖片的名稱
+    this.image = productData.image;
     // 圖片的路徑和URL
     this.updateImageDate(productData.imagePath, productData.image);
     // 獲取商品的id資料，先判定該ID有無存在
