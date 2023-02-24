@@ -3,7 +3,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const uuid = require("uuid").v4;
 const path = require('path');
-require('dotenv').config();
+// require('dotenv').config();
 
 // // 檔案上傳的位置
 // const upload = multer({
