@@ -3,6 +3,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const uuid = require("uuid").v4;
 const path = require('path');
+require('dotenv').config();
 
 // // 檔案上傳的位置
 // const upload = multer({
@@ -21,10 +22,11 @@ const path = require('path');
 
 // Configuration
 cloudinary.config({
-  cloud_name: "dzjktn9na",
-  api_key: "398746524779951",
-  api_secret: "ByyCPf_ep9RASgX48m5Jl-VzAYE",
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
 });
+
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,

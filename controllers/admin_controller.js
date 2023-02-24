@@ -5,11 +5,6 @@ const Order = require("../models/order.model");
 // const sessionFlash = require("../util/session-flash");
 const cloudinary = require('cloudinary');
 
-// cloudinary.config({
-//   cloud_name: "dzjktn9na",
-//   api_key: "398746524779951",
-//   api_secret: "ByyCPf_ep9RASgX48m5Jl-VzAYE",
-// });
 
 async function getProducts(req, res, next) {
   // 獲取資料庫資料可能會出錯，因此用try&catch
