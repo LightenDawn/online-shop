@@ -1,16 +1,15 @@
-const path = require('path');
+const path = require("path");
 const Product = require("../models/product.model");
-const Order = require('../models/order.model');
+const Order = require("../models/order.model");
 // const validation = require("../util/validation");
 // const sessionFlash = require("../util/session-flash");
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary');
 
-// Configuration 
-cloudinary.config({
-  cloud_name: "dzjktn9na",
-  api_key: "398746524779951",
-  api_secret: "ByyCPf_ep9RASgX48m5Jl-VzAYE"
-});
+// cloudinary.config({
+//   cloud_name: "dzjktn9na",
+//   api_key: "398746524779951",
+//   api_secret: "ByyCPf_ep9RASgX48m5Jl-VzAYE",
+// });
 
 async function getProducts(req, res, next) {
   // 獲取資料庫資料可能會出錯，因此用try&catch
@@ -29,18 +28,21 @@ function getNewProduct(req, res) {
 }
 
 async function createNewProduct(req, res, next) {
-  let imageName;
-  if (req.file) {
-    publicId = { public_id: path.parse(req.file.filename).name };
-    imageName = await cloudinary.uploader.upload(req.file.path, publicId);
-  }
+  // let imageName;
+  // if (req.file) {
+  //   try {
+  //     imageName = await cloudinary.uploader.upload(req.file.path, {folder: 'online-shop'});
+  //   } catch (error) {
+  //     console.log(error);
+  //     return;
+  //   }
+  // }
 
   const product = new Product({
     /// 將使用者輸入的欄位用解壓縮的方式傳遞
     ...req.body,
     // 存取multer所獲取的圖片檔案名稱
-    image: req.file.filename,
-    imagePath: imageName.url
+    image: req.file.filename
   });
 
   try {
@@ -73,9 +75,12 @@ async function updateProduct(req, res, next) {
     _id: req.params.id,
   });
 
+  const image = await Product.findById(req.params.id);
+
   // 因為到更新頁面，圖片欄位為空，若不為空時，代表使用者有新增圖片
   if (req.file) {
     // 將舊圖片更新成新圖片
+    await cloudinary.uploader.destroy(image.image);
     product.replaceImage(req.file.filename);
   }
 
@@ -105,8 +110,8 @@ async function deleteProduct(req, res, next) {
 async function getOrders(req, res, next) {
   try {
     const orders = await Order.findAll();
-    res.render('admin/orders/admin-orders', {
-      orders: orders
+    res.render("admin/orders/admin-orders", {
+      orders: orders,
     });
   } catch (error) {
     next(error);
@@ -124,7 +129,7 @@ async function updateOrder(req, res, next) {
 
     await order.save();
 
-    res.json({ message: 'Order updated', newStatus: newStatus });
+    res.json({ message: "Order updated", newStatus: newStatus });
   } catch (error) {
     next(error);
   }
@@ -138,5 +143,5 @@ module.exports = {
   updateProduct: updateProduct,
   deleteProduct: deleteProduct,
   getOrders: getOrders,
-  updateOrder: updateOrder
+  updateOrder: updateOrder,
 };

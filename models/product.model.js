@@ -11,7 +11,7 @@ class Product {
     // 圖片的名稱
     this.image = productData.image;
     // 圖片的路徑和URL
-    this.updateImageDate(productData.imagePath, productData.image);
+    this.updateImageDate(productData.imageUrl);
     // 獲取商品的id資料，先判定該ID有無存在
     if (productData._id) {
       // 將商品的id轉換成純字串，原先為ObjectId("!@#$%")，轉換後"@#@#$%$#^"
@@ -73,9 +73,8 @@ class Product {
     });
   }
 
-  updateImageDate(imagePath, imageUrl) {
-    this.imagePath = imagePath;
-    this.imageUrl = `/products/assets/images/${imageUrl}`;
+  updateImageDate(imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   async save() {
@@ -85,8 +84,9 @@ class Product {
       price: this.price,
       description: this.description,
       image: this.image,
+      imageUrl: 'https://res.cloudinary.com/dzjktn9na/image/upload/v1677221937/' + this.image
     };
-
+    
     // 如果id不為空
     if (this.id) {
       const productId = new mongodb.ObjectId(this.id);
